@@ -15,10 +15,8 @@ public class Solver {
 
     public static void main(String args[]){
         Solver test = new Solver();
-        test.testLegal(8,4,6,3,5);
-
-        test.findAllSolutions(8);
-        System.out.println("test");
+        test.findAllSolutions(5);
+        //test.testLegal(8,4,6,3,5);
     }
 
 
@@ -49,13 +47,17 @@ public class Solver {
      * @return void
      */
     public void findAllSolutions(int noOfQueens) {
+        System.out.println("******************************");
+        System.out.println("Solutions for " + noOfQueens + " queens:");
+        System.out.println();
+
+        noOfSolutions = 0;
+        this.noOfQueens = noOfQueens;
         queens = new int[noOfQueens];
         positionQueens(0);
 
-        for(int i = 1; i <= noOfQueens; i++)
-        {
-            System.out.println(queens[i]);
-        }
+        System.out.println("A total of " + noOfSolutions + " were found");
+        System.out.println("******************************");
     }
 
     /**
@@ -66,14 +68,18 @@ public class Solver {
      */
     private void positionQueens(int row) {
 
-        for (int i = 0; i < queens.length; i++) { //Runs through t
+        for (int i = 0; i < noOfQueens-1; i++) { //Runs through t
             if (legal(row, i)) {
-                queens[i] = row;
-            }
-            if (row < noOfQueens) {
-                positionQueens(row + 1);
-            }
+                queens[row] = i;
 
+                if (row < noOfQueens-1) {
+                    positionQueens(row + 1);
+                } else {
+                    printSolution();
+                    noOfSolutions++;
+                }
+
+            }
         }
     }
 
@@ -101,7 +107,10 @@ public class Solver {
      * @return void
      */
     private void printSolution() {
-
+        for(int i = 0; i < noOfQueens; i++){
+            System.out.print(convert(i,queens[i]) + " ");
+        }
+        System.out.println();
     }
 
     /**
@@ -112,7 +121,8 @@ public class Solver {
      * @return String - Returns string representation of
      */
     private String convert(int row, int col) {
-        return null;
+        char[] library = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
+        return (row + 1) + "" + library[col];
     }
 
 
