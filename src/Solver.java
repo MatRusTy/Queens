@@ -41,6 +41,12 @@ public class Solver {
      */
     private void positionQueens(int row) {
 
+        for(int i = 0; i < queens.length; i++) { //Runs through t
+            if(legal(row)) {
+                queens[row] = i;
+            }
+        }
+
         if(row < noOfQueens) {
             positionQueens(row+1);
         }
@@ -50,7 +56,7 @@ public class Solver {
      * An example of a method - replace this comment with your own
      *
      * @param row -
-     * @return boolean - This boolean evaluates to true if the queen is allwoed to be placed in the particular row.
+     * @return boolean - This boolean evaluates to true if the queen is allowed to be placed in the particular row.
      */
     private boolean legal(int row) {
         return false;
