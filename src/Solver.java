@@ -18,7 +18,7 @@ public class Solver {
         test.testLegal(8,4,6,3,5);
     }
 
-    
+
     public void testLegal(int n, int... pos){
         noOfQueens = n;
         queens = Arrays.copyOf(pos,n);
@@ -57,14 +57,14 @@ public class Solver {
      */
     private void positionQueens(int row) {
 
-        for(int i = 0; i < queens.length; i++) { //Runs through t
-            if(legal(row, i)) {
+        for (int i = 0; i < queens.length; i++) { //Runs through t
+            if (legal(row, i)) {
                 queens[i] = row;
             }
-        }
+            if (row < noOfQueens) {
+                positionQueens(row + 1);
+            }
 
-        if(row < noOfQueens) {
-            positionQueens(row+1);
         }
     }
 
