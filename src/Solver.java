@@ -4,7 +4,7 @@ public class Solver {
      * Calculates the solution to the n queens problem.
      *
      * @author Mathias og Kasper
-     * @version (a version number or a date)
+     * @version 1.0
      */
 
     private int noOfQueens; //Antal dronninger
@@ -13,7 +13,7 @@ public class Solver {
 
     public static void main(String args[]){
         System.out.println("Hello World");
-
+        //some code test
     }
 
     /**
