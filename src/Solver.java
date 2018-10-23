@@ -18,6 +18,7 @@ public class Solver {
         test.testLegal(8,4,6,3,5);
 
         test.findAllSolutions(8);
+        System.out.println("test");
     }
 
 
