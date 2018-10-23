@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Solver {
 
     /**
@@ -12,8 +14,22 @@ public class Solver {
     private int noOfSolutions;
 
     public static void main(String args[]){
-        System.out.println("Hello World");
-        //some code test
+        Solver test = new Solver();
+        test.testLegal(8,4,6,3,5);
+    }
+
+    
+    public void testLegal(int n, int... pos){
+        noOfQueens = n;
+        queens = Arrays.copyOf(pos,n);
+        System.out.println(n + "x" + n + " with queens in: " + Arrays.toString(pos) + " => Legal positions: " );
+
+        for(int i=0; i < n; i++) {
+            if( legal(pos.length,i) ) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println();
     }
 
     /**
@@ -42,8 +58,8 @@ public class Solver {
     private void positionQueens(int row) {
 
         for(int i = 0; i < queens.length; i++) { //Runs through t
-            if(legal(row)) {
-                queens[row] = i;
+            if(legal(row, i)) {
+                queens[i] = row;
             }
         }
 
@@ -58,8 +74,15 @@ public class Solver {
      * @param row -
      * @return boolean - This boolean evaluates to true if the queen is allowed to be placed in the particular row.
      */
-    private boolean legal(int row) {
-        return false;
+    private boolean legal(int row, int col) {
+
+        for(int i = 0; i < row; i++) {
+            int currentRow = row-i;
+            if(queens[currentRow] == col || queens[currentRow] == col-i || queens[currentRow] == col+i){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
