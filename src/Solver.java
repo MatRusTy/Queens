@@ -16,6 +16,8 @@ public class Solver {
     public static void main(String args[]){
         Solver test = new Solver();
         test.testLegal(8,4,6,3,5);
+
+        test.findAllSolutions(8);
     }
 
 
@@ -46,7 +48,13 @@ public class Solver {
      * @return void
      */
     public void findAllSolutions(int noOfQueens) {
+        queens = new int[noOfQueens];
+        positionQueens(0);
 
+        for(int i = 1; i <= noOfQueens; i++)
+        {
+            System.out.println(queens[i]);
+        }
     }
 
     /**
