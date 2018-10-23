@@ -16,22 +16,8 @@ public class Solver {
     public static void main(String args[]){
         Solver test = new Solver();
         test.findAllSolutions(8);
-        //test.testLegal(8,4,6,3,5);
     }
 
-
-    public void testLegal(int n, int... pos){
-        noOfQueens = n;
-        queens = Arrays.copyOf(pos,n);
-        System.out.println(n + "x" + n + " with queens in: " + Arrays.toString(pos) + " => Legal positions: " );
-
-        for(int i=0; i < n; i++) {
-            if( legal(pos.length,i) ) {
-                System.out.print(i + " ");
-            }
-        }
-        System.out.println();
-    }
 
     /**
      * Constructor for objects of class Solver
@@ -51,12 +37,17 @@ public class Solver {
         System.out.println("Solutions for " + noOfQueens + " queens:");
         System.out.println();
 
+        long timeBefore = System.currentTimeMillis();
         noOfSolutions = 0;
         this.noOfQueens = noOfQueens;
         queens = new int[noOfQueens];
         positionQueens(0);
 
-        System.out.println("A total of " + noOfSolutions + " were found");
+        long timeAfter = System.currentTimeMillis();
+        long time = timeAfter - timeBefore;
+
+        System.out.println();
+        System.out.println("A total of " + noOfSolutions + " were found in " + time + " ms");
         System.out.println("******************************");
     }
 
@@ -83,15 +74,16 @@ public class Solver {
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Checks if the current position (row and column values) of a queen is legal.
      *
-     * @param row -
+     * @param row - The row that our queen, which we are checking for, is in.
+     * @param col - The column that our queen, which we are checking for, is in.
      * @return boolean - This boolean evaluates to true if the queen is allowed to be placed in the particular row.
      */
     private boolean legal(int row, int col) {
 
-        for(int i = 1; i < row+1; i++) {
-            int currentRow = row-i;
+        for(int i = 1; i <= row; i++) { //i represents how many rows we are under the row that our queen, which we are checking for, is in.
+            int currentRow = (row-i);
             if(queens[currentRow] == col || queens[currentRow] == col-i || queens[currentRow] == col+i){
                 return false;
             }
