@@ -15,7 +15,7 @@ public class Solver {
 
     public static void main(String args[]){
         Solver test = new Solver();
-        test.findAllSolutions(5);
+        test.findAllSolutions(8);
         //test.testLegal(8,4,6,3,5);
     }
 
@@ -68,17 +68,16 @@ public class Solver {
      */
     private void positionQueens(int row) {
 
-        for (int i = 0; i < noOfQueens-1; i++) { //Runs through t
+        for (int i = 0; i < noOfQueens; i++) { //Runs through t
             if (legal(row, i)) {
                 queens[row] = i;
 
-                if (row < noOfQueens-1) {
+                if (!(row == noOfQueens-1)) {
                     positionQueens(row + 1);
                 } else {
                     printSolution();
                     noOfSolutions++;
                 }
-
             }
         }
     }
@@ -91,7 +90,7 @@ public class Solver {
      */
     private boolean legal(int row, int col) {
 
-        for(int i = 0; i < row; i++) {
+        for(int i = 1; i < row+1; i++) {
             int currentRow = row-i;
             if(queens[currentRow] == col || queens[currentRow] == col-i || queens[currentRow] == col+i){
                 return false;
@@ -107,8 +106,8 @@ public class Solver {
      * @return void
      */
     private void printSolution() {
-        for(int i = 0; i < noOfQueens; i++){
-            System.out.print(convert(i,queens[i]) + " ");
+        for(int row = 0; row < noOfQueens; row++){
+            System.out.print(convert(row,queens[row]) + " ");
         }
         System.out.println();
     }
@@ -124,7 +123,5 @@ public class Solver {
         char[] library = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
         return (row + 1) + "" + library[col];
     }
-
-
 
 }
