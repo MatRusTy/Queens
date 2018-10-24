@@ -12,12 +12,14 @@ public class Solver {
     private int noOfQueens; //Antal dronninger
     private int[] queens; //Array med rækker og en int værdi der repræsenterer dronngingernes placeringer.
     private int noOfSolutions;
+    private boolean showSolutions = true; //Afgører om løsningerne udskrives.
+    private long duration;
 
     public static void main(String args[]){
         Solver test = new Solver();
-        test.findAllSolutions(8);
+        //test.findAllSolutions(8);
+        test.findNoOfSolutions(4, 12);
     }
-
 
     /**
      * Constructor for objects of class Solver
@@ -33,9 +35,11 @@ public class Solver {
      * @return void
      */
     public void findAllSolutions(int noOfQueens) {
-        System.out.println("******************************");
-        System.out.println("Solutions for " + noOfQueens + " queens:");
-        System.out.println();
+        if(showSolutions) {
+            System.out.println("******************************");
+            System.out.println("Solutions for " + noOfQueens + " queens:");
+            System.out.println();
+        }
 
         long timeBefore = System.currentTimeMillis();
         noOfSolutions = 0;
@@ -46,9 +50,28 @@ public class Solver {
         long timeAfter = System.currentTimeMillis();
         long time = timeAfter - timeBefore;
 
-        System.out.println();
-        System.out.println("A total of " + noOfSolutions + " were found in " + time + " ms");
-        System.out.println("******************************");
+        duration = time;
+
+        if(showSolutions) {
+            System.out.println();
+            System.out.println("A total of " + noOfSolutions + " were found in " + time + " ms");
+            System.out.println("******************************");
+        }
+    }
+
+    public void findNoOfSolutions(int min, int max)
+    {
+        showSolutions = false;
+
+        System.out.println("************************************");
+        System.out.println("Queens" + "    Solutions " + "  Time(ms) " + " Solutions/ms");
+        for(int i = min; i <= max; i++) {
+
+            findAllSolutions(i);
+
+            System.out.format("  %3d %,12d   %,8d      %,8d %n", noOfQueens, noOfSolutions, duration+1, noOfSolutions/(duration+1));
+        }
+        System.out.println("************************************");
     }
 
     /**
@@ -66,7 +89,10 @@ public class Solver {
                 if (!(row == noOfQueens-1)) {
                     positionQueens(row + 1);
                 } else {
-                    printSolution();
+
+                    if(showSolutions) {
+                        printSolution();
+                    }
                     noOfSolutions++;
                 }
             }
@@ -94,22 +120,23 @@ public class Solver {
     /**
      * An example of a method - replace this comment with your own
      *
-     * @param - none
      * @return void
      */
     private void printSolution() {
+
         for(int row = 0; row < noOfQueens; row++){
             System.out.print(convert(row,queens[row]) + " ");
         }
         System.out.println();
+
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Converts the row and column to a traditional chess notation.
      *
-     * @param row
-     * @param col
-     * @return String - Returns string representation of
+     * @param row - Current row
+     * @param col - Current column
+     * @return String - Returns string representation of a square.
      */
     private String convert(int row, int col) {
         char[] library = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
