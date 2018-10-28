@@ -70,6 +70,11 @@ public class Solver {
             System.out.println("A total of " + noOfSolutions + " were found in " + time + " ms");
             System.out.println("*********************************************");
         }
+        //Test af hvor mange dronninger som man kan finde løsninger for efter 3 minutter.
+        //15 dronninger tog 88,777 sekunder.
+        //16 dronninger tog 24,76305 minutter
+        //Derfor kan man inden for 3 minutter højst finde løsningerne for 15 dronninger.
+        //Testet med Intel i5-4590 CPU @ 3.30 GHz
     }
 
     /**
