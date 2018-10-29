@@ -12,18 +12,14 @@ public class Solver {
     private int noOfQueens; //Amount of queens
     private int[] queens; //Array with an element for each row and an integer value representing the column placement of that particular queen.
     private int noOfSolutions;
-    private boolean showSolutions = true; //Specifies if the solutions from printSolution should be printed to the terminal.
+    private boolean showSolutions = true; //Specifies if the solutions should be printed to the terminal.
     private long duration;
 
-    public static void main(String args[]){
-        Solver test = new Solver();
-        //test.findAllSolutions(8);
-        //test.findNoOfSolutions(4, 12);
+    public static void main(String args[]) {
         testSolver();
     }
 
-    public static void testSolver()
-    {
+    public static void testSolver() {
         Solver sol = new Solver();
 
         sol.findAllSolutions(1);
@@ -31,7 +27,6 @@ public class Solver {
         sol.findAllSolutions(6);
 
         sol.findNoOfSolutions(1, 12);
-
     }
 
     /**
@@ -45,7 +40,6 @@ public class Solver {
      * Inserts a specific number of queens and prints all possible solutions, and the runtime of the method.
      *
      * @param noOfQueens - Takes the amount of queens to place as a parameter.
-     * @return void
      */
     public void findAllSolutions(int noOfQueens) {
         if(showSolutions) {
@@ -55,9 +49,10 @@ public class Solver {
         }
 
         long timeBefore = System.currentTimeMillis();
+
         noOfSolutions = 0;
         this.noOfQueens = noOfQueens;
-        queens = new int[noOfQueens];
+        queens = new int[noOfQueens]; //Creates new queens array of size noOfQueens
         positionQueens(0);
 
         long timeAfter = System.currentTimeMillis();
@@ -69,6 +64,7 @@ public class Solver {
             System.out.println();
             System.out.println("A total of " + noOfSolutions + " were found in " + time + " ms");
             System.out.println("*********************************************");
+            System.out.println();
         }
         //Test af hvor mange dronninger som man kan finde løsninger for efter 3 minutter.
         //15 dronninger tog 88,777 sekunder.
@@ -80,12 +76,10 @@ public class Solver {
     /**
      * Runs through the findAllSolutions with a specified interval of queens and creates a table detailing the solutions.
      *
-     * @param min - Takes the lower limit of the invterval to create a tabel over.
-     * @param max - Takes the upper limit of the invterval to create a tabel over.
-     * @return void
+     * @param min - Takes the lower limit of the interval to create a table over.
+     * @param max - Takes the upper limit of the interval to create a table over.
      */
-    public void findNoOfSolutions(int min, int max)
-    {
+    public void findNoOfSolutions(int min, int max) {
         showSolutions = false;
 
         System.out.println("*********************************************");
@@ -97,18 +91,20 @@ public class Solver {
             System.out.format("  %3d %,12d   %,8d      %,8d %n", noOfQueens, noOfSolutions, duration+1, noOfSolutions/(duration+1));
         }
         System.out.println("*********************************************");
+        System.out.println();
+
+        showSolutions = true;
     }
 
     /**
      * Positions a queen in the row specified in the parameter.
      *
      * @param row - The row to place the queen in.
-     * @return void
      */
     private void positionQueens(int row) {
 
         for (int i = 0; i < noOfQueens; i++) { //Runs through the columns to check which column the queen can be placed in.
-            if (legal(row, i)) {
+            if (legal(row, i)) { //Tests if column i is legal
                 queens[row] = i;
 
                 if (!(row == noOfQueens-1)) {
@@ -143,17 +139,14 @@ public class Solver {
     }
 
     /**
-     * Prints the all of the solutions.
-     *
-     * @return void
+     * Prints a solution
      */
     private void printSolution() {
 
-        for(int row = 0; row < noOfQueens; row++){
+        for(int row = 0; row < noOfQueens; row++) {
             System.out.print(convert(row,queens[row]) + " ");
         }
         System.out.println();
-
     }
 
     /**
@@ -167,5 +160,4 @@ public class Solver {
         char[] library = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z'};
         return  library[col] + "" +  (row + 1);
     }
-
 }
